@@ -1,0 +1,6 @@
+@model IEnumerable<Category>
+@{ViewData["Title"]="Danh mục vật tư";}
+<div class="d-flex justify-content-between mb-3"><h2>Danh mục vật tư</h2><a asp-action="Create" class="btn btn-primary">+ Thêm danh mục</a></div>
+<div class="card p-3"><table class="table"><thead><tr><th>Tên danh mục</th><th>Mô tả</th><th>Thao tác</th></tr></thead><tbody>
+@foreach(var x in Model){<tr><td>@x.Name</td><td>@x.Description</td><td><a asp-action="Edit" asp-route-id="@x.Id">Sửa</a> | <a asp-action="Delete" asp-route-id="@x.Id">Xóa</a></td></tr>}
+</tbody></table></div>

@@ -1,0 +1,19 @@
+@{
+    ViewData["Title"] = "Trang chủ";
+}
+<h2 class="mb-4">Tổng quan kho vật tư</h2>
+<div class="row g-3 mb-4">
+    <div class="col-6 col-lg"><div class="card p-3"><div class="text-muted">Tổng vật tư</div><div class="stat-number">@ViewBag.MaterialCount</div></div></div>
+    <div class="col-6 col-lg"><div class="card p-3"><div class="text-muted">Sắp hết hàng</div><div class="stat-number text-danger">@ViewBag.LowStock</div></div></div>
+    <div class="col-6 col-lg"><div class="card p-3"><div class="text-muted">Nhà cung cấp</div><div class="stat-number">@ViewBag.SupplierCount</div></div></div>
+    <div class="col-6 col-lg"><div class="card p-3"><div class="text-muted">Phiếu nhập</div><div class="stat-number">@ViewBag.ReceiptCount</div></div></div>
+    <div class="col-6 col-lg"><div class="card p-3"><div class="text-muted">Phiếu xuất</div><div class="stat-number">@ViewBag.IssueCount</div></div></div>
+</div>
+<div class="card p-3">
+<h5>Vật tư cần nhập thêm</h5>
+@if (((IEnumerable<Material>)ViewBag.LowStockItems).Any()) {
+<table class="table table-striped"><thead><tr><th>Mã</th><th>Tên vật tư</th><th>Danh mục</th><th>Tồn</th><th>Mức tối thiểu</th></tr></thead><tbody>
+@foreach (var x in (IEnumerable<Material>)ViewBag.LowStockItems) { <tr><td>@x.Code</td><td>@x.Name</td><td>@x.Category?.Name</td><td><span class="badge bg-danger">@x.Quantity @x.Unit</span></td><td>@x.MinStock</td></tr> }
+</tbody></table>
+} else { <p class="text-success mb-0">Hiện chưa có vật tư nào dưới mức tồn tối thiểu.</p> }
+</div>

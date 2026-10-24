@@ -1,0 +1,4 @@
+@model Material
+@{ ViewData["Title"]="Xóa vật tư"; }
+<div class="card form-card p-4"><h2>Xóa vật tư</h2><p>Bạn có chắc muốn xóa <strong>@Model.Name (@Model.Code)</strong>?</p>
+<form asp-action="Delete" method="post"><input type="hidden" asp-for="Id" /><button class="btn btn-danger" data-confirm="Bạn chắc chắn muốn xóa vật tư này?">Xác nhận xóa</button> <a asp-action="Index" class="btn btn-secondary">Hủy</a></form></div>

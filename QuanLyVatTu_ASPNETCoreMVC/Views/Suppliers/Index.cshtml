@@ -1,0 +1,7 @@
+@model IEnumerable<Supplier>
+@{ViewData["Title"]="Nhà cung cấp";}
+<div class="d-flex justify-content-between mb-3"><h2>Nhà cung cấp</h2><a asp-action="Create" class="btn btn-primary">+ Thêm nhà cung cấp</a></div>
+<form method="get" class="card p-3 mb-3"><div class="input-group"><input name="q" class="form-control" placeholder="Tìm tên nhà cung cấp"/><button class="btn btn-outline-primary">Tìm</button></div></form>
+<div class="card p-3"><table class="table"><thead><tr><th>Tên</th><th>Điện thoại</th><th>Email</th><th>Địa chỉ</th><th>Thao tác</th></tr></thead><tbody>
+@foreach(var x in Model){<tr><td>@x.Name</td><td>@x.Phone</td><td>@x.Email</td><td>@x.Address</td><td><a asp-action="Edit" asp-route-id="@x.Id">Sửa</a> | <a asp-action="Delete" asp-route-id="@x.Id">Xóa</a></td></tr>}
+</tbody></table></div>

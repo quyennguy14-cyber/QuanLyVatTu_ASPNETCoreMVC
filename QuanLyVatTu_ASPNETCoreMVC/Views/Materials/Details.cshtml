@@ -1,0 +1,13 @@
+@model Material
+@{ ViewData["Title"]="Chi tiết vật tư"; }
+<div class="card form-card p-4"><h2>Chi tiết vật tư</h2>
+<dl class="row">
+<dt class="col-sm-4">Mã vật tư</dt><dd class="col-sm-8">@Model.Code</dd>
+<dt class="col-sm-4">Tên vật tư</dt><dd class="col-sm-8">@Model.Name</dd>
+<dt class="col-sm-4">Danh mục</dt><dd class="col-sm-8">@Model.Category?.Name</dd>
+<dt class="col-sm-4">Nhà cung cấp</dt><dd class="col-sm-8">@Model.Supplier?.Name</dd>
+<dt class="col-sm-4">Đơn vị</dt><dd class="col-sm-8">@Model.Unit</dd>
+<dt class="col-sm-4">Số lượng tồn</dt><dd class="col-sm-8">@Model.Quantity</dd>
+<dt class="col-sm-4">Đơn giá</dt><dd class="col-sm-8">@Model.UnitPrice.ToString("N0") đ</dd>
+<dt class="col-sm-4">Tồn tối thiểu</dt><dd class="col-sm-8">@Model.MinStock</dd>
+</dl><a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Sửa</a> <a asp-action="Index" class="btn btn-secondary">Quay lại</a></div>

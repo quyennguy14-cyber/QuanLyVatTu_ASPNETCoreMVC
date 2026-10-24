@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\QuanLyVatTu_ASPNETCoreMVC",
+    "\\QuanLyVatTu_ASPNETCoreMVC\\bin",
+    "\\QuanLyVatTu_ASPNETCoreMVC\\bin\\Release",
+    "\\QuanLyVatTu_ASPNETCoreMVC\\Controllers",
+    "\\QuanLyVatTu_ASPNETCoreMVC\\Data",
+    "\\QuanLyVatTu_ASPNETCoreMVC\\Database",
+    "\\QuanLyVatTu_ASPNETCoreMVC\\Models",
+    "\\QuanLyVatTu_ASPNETCoreMVC\\obj"
+  ],
+  "SelectedNode": "\\QuanLyVatTu_ASPNETCoreMVC\\Database\\QuanLyVatTuDB.sql",
+  "PreviewInSolutionExplorer": false
+}

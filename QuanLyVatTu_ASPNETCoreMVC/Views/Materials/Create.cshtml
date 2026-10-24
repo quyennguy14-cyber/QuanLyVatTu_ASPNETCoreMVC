@@ -1,0 +1,16 @@
+@model Material
+@{ ViewData["Title"] = "Thêm vật tư"; }
+<div class="card form-card p-4"><h2>Thêm vật tư</h2>
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3"><label asp-for="Code" class="form-label"></label><input asp-for="Code" class="form-control" /><span asp-validation-for="Code" class="text-danger"></span></div>
+    <div class="mb-3"><label asp-for="Name" class="form-label"></label><input asp-for="Name" class="form-control" /><span asp-validation-for="Name" class="text-danger"></span></div>
+    <div class="mb-3"><label asp-for="Unit" class="form-label"></label><input asp-for="Unit" class="form-control" /><span asp-validation-for="Unit" class="text-danger"></span></div>
+    <div class="mb-3"><label asp-for="Quantity" class="form-label"></label><input asp-for="Quantity" class="form-control" /><span asp-validation-for="Quantity" class="text-danger"></span></div>
+    <div class="mb-3"><label asp-for="UnitPrice" class="form-label"></label><input asp-for="UnitPrice" class="form-control" /><span asp-validation-for="UnitPrice" class="text-danger"></span></div>
+    <div class="mb-3"><label asp-for="MinStock" class="form-label"></label><input asp-for="MinStock" class="form-control" /><span asp-validation-for="MinStock" class="text-danger"></span></div>
+    <div class="mb-3"><label asp-for="CategoryId" class="form-label"></label><select asp-for="CategoryId" asp-items="ViewBag.CategoryId" class="form-select"><option value="">-- Chọn danh mục --</option></select></div>
+    <div class="mb-3"><label asp-for="SupplierId" class="form-label"></label><select asp-for="SupplierId" asp-items="ViewBag.SupplierId" class="form-select"><option value="">-- Chọn nhà cung cấp --</option></select></div>
+    <button class="btn btn-primary">Lưu</button> <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form></div>

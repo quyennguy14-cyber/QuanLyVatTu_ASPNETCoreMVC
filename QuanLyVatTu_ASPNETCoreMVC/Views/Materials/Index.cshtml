@@ -1,0 +1,62 @@
+@model IEnumerable<Material>
+@{ ViewData["Title"] = "Quản lý vật tư"; int page=(int)ViewBag.Page; int total=(int)ViewBag.TotalPages; }
+<div class="d-flex justify-content-between align-items-center mb-3"><h2>Quản lý vật tư</h2><a asp-action="Create" class="btn btn-primary">+ Thêm vật tư</a></div>
+<form method="get" class="card p-3 mb-3">
+<div class="row g-2">
+ <div class="col-md-6"><input name="q" value="@ViewBag.Q" class="form-control" placeholder="Tìm theo mã hoặc tên vật tư..." /></div>
+ <div class="col-md-4"><select name="categoryId" asp-items="ViewBag.Categories" class="form-select"><option value="">-- Tất cả danh mục --</option></select></div>
+ <div class="col-md-2 d-grid"><button class="btn btn-outline-primary">Tìm kiếm</button></div>
+</div>
+</form>
+<div class="card p-3"><div class="mb-3"><label for="ajaxMaterialSearch" class="form-label">Tìm nhanh bằng AJAX</label><input id="ajaxMaterialSearch" class="form-control" placeholder="Nhập mã hoặc tên vật tư để tìm ngay..." /></div><div class="table-responsive"><table class="table table-hover">
+<thead><tr><th>Mã</th><th>Tên vật tư</th><th>Danh mục</th><th>Đơn vị</th><th>Tồn kho</th><th>Đơn giá</th><th>Thao tác</th></tr></thead><tbody id="materialTableBody">
+@foreach (var x in Model) { <tr><td>@x.Code</td><td>@x.Name</td><td>@x.Category?.Name</td><td>@x.Unit</td><td>@if(x.Quantity<=x.MinStock){<span class="badge bg-danger">@x.Quantity</span>}else{@x.Quantity}</td><td>@x.UnitPrice.ToString("N0") đ</td><td class="text-nowrap"><a asp-action="Details" asp-route-id="@x.Id">Xem</a> | <a asp-action="Edit" asp-route-id="@x.Id">Sửa</a> | <a asp-action="Delete" asp-route-id="@x.Id">Xóa</a></td></tr> }
+</tbody></table></div>
+@if (!Model.Any()) { <p>Không có dữ liệu phù hợp.</p> }
+@if(total>1) { <nav><ul class="pagination">
+@if(page>1){<li class="page-item"><a class="page-link" asp-route-page="@(page-1)" asp-route-q="@ViewBag.Q" asp-route-categoryId="@ViewBag.CategoryId">Trước</a></li>}
+@for(int i=1;i<=total;i++){<li class="page-item @(i==page?"active":"")"><a class="page-link" asp-route-page="@i" asp-route-q="@ViewBag.Q" asp-route-categoryId="@ViewBag.CategoryId">@i</a></li>}
+@if(page<total){<li class="page-item"><a class="page-link" asp-route-page="@(page+1)" asp-route-q="@ViewBag.Q" asp-route-categoryId="@ViewBag.CategoryId">Sau</a></li>}
+</ul></nav>}
+</div>
+
+@section Scripts {
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const input = document.getElementById("ajaxMaterialSearch");
+  const body = document.getElementById("materialTableBody");
+  let timer;
+  input.addEventListener("input", () => {
+    clearTimeout(timer);
+    timer = setTimeout(async () => {
+      const q = input.value.trim();
+      try {
+        const response = await fetch("/api/v1/vattu?q=" + encodeURIComponent(q));
+        if (!response.ok) throw new Error("Không thể tìm dữ liệu");
+        const items = await response.json();
+        body.innerHTML = "";
+        for (const x of items) {
+          const tr = document.createElement("tr");
+          const values = [x.code, x.name, x.category, x.unit, x.quantity, Number(x.unitPrice).toLocaleString("vi-VN") + " đ"];
+          for (const value of values) {
+            const td = document.createElement("td");
+            td.textContent = value ?? "";
+            tr.appendChild(td);
+          }
+          const action = document.createElement("td");
+          action.textContent = "Dùng các liên kết Xem/Sửa/Xóa ở chế độ danh sách thường.";
+          tr.appendChild(action);
+          body.appendChild(tr);
+        }
+        if (items.length === 0) {
+          const tr = document.createElement("tr");
+          const td = document.createElement("td");
+          td.colSpan = 7; td.textContent = "Không tìm thấy vật tư.";
+          tr.appendChild(td); body.appendChild(tr);
+        }
+      } catch (e) { console.error(e); }
+    }, 250);
+  });
+});
+</script>
+}

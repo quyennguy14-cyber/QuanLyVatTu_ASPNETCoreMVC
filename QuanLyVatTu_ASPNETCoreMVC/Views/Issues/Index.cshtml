@@ -1,0 +1,6 @@
+@model IEnumerable<Issue>
+@{ViewData["Title"]="Phiếu xuất kho";}
+<div class="d-flex justify-content-between mb-3"><h2>Phiếu xuất kho</h2><a asp-action="Create" class="btn btn-primary">+ Lập phiếu xuất</a></div>
+<div class="card p-3"><table class="table"><thead><tr><th>Mã phiếu</th><th>Ngày xuất</th><th>Lý do</th><th>Số dòng vật tư</th></tr></thead><tbody>
+@foreach(var x in Model){<tr><td>@x.Code</td><td>@x.Date.ToString("dd/MM/yyyy")</td><td>@x.Note</td><td>@x.Details.Count</td></tr>}
+</tbody></table></div>
